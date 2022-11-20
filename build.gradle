@@ -1,61 +1,29 @@
-buildscript {
-    repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-        maven {
-            name = "SpongePowered"
-            url = 'https://repo.spongepowered.org/repository/maven-public/'
-        }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
+plugins {
+    id "dev.architectury.loom" version "0.12.0-SNAPSHOT"
+    id "maven-publish"
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'org.spongepowered.mixin'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 
-archivesBaseName = "FTB_Quest_Lang_Gen"
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
 
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: 'official', version: '1.18.2'
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'ftbconv'
-
-            mods {
-                ftbconv {
-                    source sourceSets.main
-                }
-            }
+loom {
+    silentMojangMappingsLicense()
+    
+    forge {
+        dataGen {
+            mod project.mod_id
         }
-
-        server {
-            workingDirectory project.file('run')
-            property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'ftbconv'
-
-            mods {
-                ftbconv {
-                    source sourceSets.main
-                }
-            }
+    }
+    
+    launches {
+        data {
+            arg "--existing", file("src/main/resources").absolutePath
         }
     }
 }
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
@@ -67,18 +35,62 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.68'
-    implementation fg.deobf("curse.maven:ftb-quests-forge-289412:3725771")
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    // mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    forge "net.minecraftforge:forge:${project.forge_version}"
 
-    implementation fg.deobf("curse.maven:item-filters-309674:3875094")
-    implementation fg.deobf("curse.maven:architectury-api-419699:3893735")
-    implementation fg.deobf("curse.maven:ftb-library-forge-404465:3905972")
-    implementation fg.deobf("curse.maven:ftb-teams-forge-404468:3725501")
+    modImplementation "curse.maven:ftb-quests-forge-289412:3725771"
 
+    modImplementation "curse.maven:item-filters-309674:3875094"
+    modImplementation "curse.maven:architectury-api-419699:3893735"
+    modImplementation "curse.maven:ftb-library-forge-404465:3905972"
+    modImplementation "curse.maven:ftb-teams-forge-404468:3725501"
 }
 
-jar.finalizedBy('reobfJar')
+processResources {
+    inputs.property "version", project.version
+    
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    options.release = 17
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"     : project.mod_id,
+                "Specification-Vendor"    : project.mod_author,
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : version,
+                "Implementation-Vendor"   : project.mod_author,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+        }
+    }
+
+    repositories {
+    }
 }

@@ -1,22 +1,36 @@
-modLoader="javafml"
-loaderVersion="[40,)"
-license="All rights reserved"
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "CC-BY-4.0"
+
 [[mods]]
-modId="ftbconv"
-version="${file.jarVersion}"
-displayName="FTB quest lang converter"
-description=''' Stuff '''
+modId = "ftbqlocalkeys"
+version = "${version}"
+displayName = "Re-FTBQLocalizationKeys"
+displayURL="https://github.com/TexTrueStudio/FTBQLocalizationkeys"
+# logoFile="icon.png" #optional
+credits="BlackAuresArt"
+authors="TexTrue, TexTrueStudio"
+description = '''
+FTB Quest lang converter
+'''
 
-[[dependencies.ftbconv]]
-    modId="forge"
-    mandatory=true
-    versionRange="[40,)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.ftbqlocalkeys]]
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "BOTH"
 
-[[dependencies.ftbconv]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.18.2,1.19)"
-    ordering="NONE"
-    side="BOTH"
+[[dependencies.ftbqlocalkeys]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.ftbqlocalkeys]]
+modId = "ftbquests"
+mandatory = true
+versionRange = "[1802.3.8-build.101,)"
+ordering = "NONE"
+side = "BOTH"
