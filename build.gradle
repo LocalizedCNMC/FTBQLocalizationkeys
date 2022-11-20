@@ -3,7 +3,7 @@ plugins {
     id "maven-publish"
 }
 
-sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = project.archives_base_name
 version = project.mod_version
@@ -28,21 +28,18 @@ loom {
 repositories {
     maven { url "https://maven.architectury.dev/" }
     maven { url "https://maven.saps.dev/minecraft" }
+    maven { url "https://www.cursemaven.com" }
 
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    // mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     forge "net.minecraftforge:forge:${project.forge_version}"
 
     modImplementation "dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}"
 
-    modImplementation "dev.ftb.mods:ftb-library-forge:${rootProject.ftb_library_version}"
-    modImplementation "dev.ftb.mods:ftb-teams-forge:${rootProject.ftb_teams_version}"
-    modImplementation "dev.latvian.mods:item-filters-forge:${rootProject.itemfilters_version}"
-    modImplementation "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
 }
 
 processResources {
@@ -55,7 +52,7 @@ processResources {
 
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
-    options.release = 17
+    options.release = 16
 }
 
 java {

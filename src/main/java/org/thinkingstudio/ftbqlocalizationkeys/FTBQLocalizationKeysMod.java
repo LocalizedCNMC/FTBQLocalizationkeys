@@ -1,5 +1,6 @@
 package org.thinkingstudio.ftbqlocalizationkeys;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
@@ -14,20 +15,18 @@ import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-//import net.minecraft.network.chat.TextComponent;
-//import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLPaths;
-import org.apache.commons.compress.utils.Lists;
+//import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -209,7 +208,7 @@ public class FTBQLocalizationKeysMod {
 					saveLang(transKeys, "en_us", transFiles);
 				}
 
-				Ctx.getSource().getPlayerOrException().sendMessage(Component.nullToEmpty(ForgeI18n.getPattern("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())), Util.NIL_UUID);
+				Ctx.getSource().getPlayerOrException().sendMessage(Component.nullToEmpty(I18n.get("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())), Util.NIL_UUID);
 
 			}catch(Exception e){
 				e.printStackTrace();
