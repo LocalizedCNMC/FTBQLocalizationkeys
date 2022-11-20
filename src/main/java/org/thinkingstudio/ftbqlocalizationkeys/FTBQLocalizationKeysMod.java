@@ -18,7 +18,10 @@ import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
+//import net.minecraft.network.chat.TextComponent;
+//import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -55,7 +58,7 @@ public class FTBQLocalizationKeysMod {
 		CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
 
 		RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
-		LiteralCommandNode<CommandSourceStack> commandNode = literal("ftb-lang-convert").executes(context -> {
+		LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbq-lang-convert").executes(context -> {
 			return 0;
 		}).build();
 
@@ -63,7 +66,7 @@ public class FTBQLocalizationKeysMod {
 			return SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2);
 		}).executes(Ctx -> {
 			try{
-				File parent = new File(FMLPaths.GAMEDIR.get().toFile(), "ftb-conv");
+				File parent = new File(FMLPaths.GAMEDIR.get().toFile(), "ftbqlocalizationkeys");
 				File transFiles = new File(parent, "kubejs/assets/kubejs/lang/");
 				File questsFolder = new File(FMLPaths.GAMEDIR.get().toFile(), "config/ftbquests/");
 
@@ -206,7 +209,7 @@ public class FTBQLocalizationKeysMod {
 					saveLang(transKeys, "en_us", transFiles);
 				}
 
-				Ctx.getSource().getPlayerOrException().sendMessage(new TextComponent("FTB quests files exported to: " + parent.getAbsolutePath()), Util.NIL_UUID);
+				Ctx.getSource().getPlayerOrException().sendMessage(Component.nullToEmpty(ForgeI18n.getPattern("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())), Util.NIL_UUID);
 
 			}catch(Exception e){
 				e.printStackTrace();
