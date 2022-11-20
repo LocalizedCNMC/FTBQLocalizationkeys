@@ -12,13 +12,14 @@ import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.Task;
-import net.minecraft.Util;
+//import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
-import net.minecraft.network.chat.TextComponent;
+//import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -206,7 +207,7 @@ public class FTBQLocalizationKeysMod {
 					saveLang(transKeys, "en_us", transFiles);
 				}
 
-				Ctx.getSource().getPlayerOrException().sendMessage(new TextComponent("FTB quests files exported to: " + parent.getAbsolutePath()), Util.NIL_UUID);
+				Ctx.getSource().getPlayerOrException().sendSystemMessage(Component.translatable("FTB quests files exported to: " + parent.getAbsolutePath()));
 
 			}catch(Exception e){
 				e.printStackTrace();
