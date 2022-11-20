@@ -14,6 +14,7 @@ import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 //import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.language.LanguageInfo;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -207,7 +208,7 @@ public class FTBQLocalizationKeysMod {
 					saveLang(transKeys, "en_us", transFiles);
 				}
 
-				Ctx.getSource().getPlayerOrException().sendSystemMessage(Component.translatable("FTB quests files exported to: " + parent.getAbsolutePath()));
+				Ctx.getSource().getPlayerOrException().sendSystemMessage(Component.nullToEmpty(I18n.get("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())));
 
 			}catch(Exception e){
 				e.printStackTrace();
