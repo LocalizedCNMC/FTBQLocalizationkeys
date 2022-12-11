@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "ftbqlocalkeys",
+  "version": "${version}",
+
+  "name": "FTBQLocalizationKeys-Reconverted",
+  "description": "FTB quest lang converter",
+  "credits": [
+    "BlackAuresArt"
+  ],
+  "authors": [
+    "TexTrue",
+    "TexTrueStudio",
+    "BocchiKessokuTeam"
+  ],
+  "contact": {
+    "github": "https://github.com/TexTrueStudio/FTBQLocalizationkeys"
+  },
+
+  "license": "CC-BY-4.0",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "org.thinkingstudio.ftbqlocalizationkeys.FTBQLocalizationKeysMod"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "kubejs": "*",
+    "ftbquests": "*"
+  }
+}
