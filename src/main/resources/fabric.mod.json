@@ -30,8 +30,8 @@
   "depends": {
     "fabricloader": ">=0.14.6",
     "fabric": "*",
-    "minecraft": "1.19.x",
-    "java": ">=17",
+    "minecraft": ">=1.16.4",
+    "java": ">=16",
     "kubejs": "*",
     "ftbquests": "*"
   }

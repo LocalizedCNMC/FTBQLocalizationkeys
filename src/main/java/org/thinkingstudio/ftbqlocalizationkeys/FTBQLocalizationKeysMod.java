@@ -1,5 +1,6 @@
 package org.thinkingstudio.ftbqlocalizationkeys;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
@@ -13,17 +14,16 @@ import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.Task;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.client.resources.language.LanguageInfo;
-import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -42,7 +42,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
 
     public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    private static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, CommandBuildContext dedicated, Commands.CommandSelection commandSelection){
+    private static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, boolean dedicated){
         RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
         LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbqkey").executes(context -> 0).build();
 
@@ -191,7 +191,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                     saveLang(transKeys, "en_us", transFiles);
                 }
 
-                Ctx.getSource().getPlayerOrException().sendSystemMessage(Component.nullToEmpty(I18n.get("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())));
+                Ctx.getSource().getPlayerOrException().sendMessage(Component.nullToEmpty(I18n.get("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())), Util.NIL_UUID);
 
             }catch(Exception e){
                 e.printStackTrace();
