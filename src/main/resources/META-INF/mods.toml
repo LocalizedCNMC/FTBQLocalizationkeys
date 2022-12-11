@@ -5,11 +5,11 @@ license = "CC-BY-4.0"
 [[mods]]
 modId = "ftbqlocalkeys"
 version = "${version}"
-displayName = "Re-FTBQLocalizationKeys"
+displayName = "FTBQLocalizationKeys-Reconverted"
 displayURL="https://github.com/TexTrueStudio/FTBQLocalizationkeys"
-# logoFile="icon.png" #optional
+logoFile="icon.png" #optional
 credits="BlackAuresArt"
-authors="TexTrue, TexTrueStudio"
+authors="TexTrue, TexTrueStudio, BocchiKessokuTeam"
 description = '''
 FTB Quest lang converter
 '''
@@ -24,13 +24,13 @@ side = "BOTH"
 [[dependencies.ftbqlocalkeys]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.18,)"
+versionRange = "[1.19,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbqlocalkeys]]
 modId = "ftbquests"
 mandatory = true
-versionRange = "[1802.3.8,)"
+versionRange = "[1902,)"
 ordering = "NONE"
 side = "BOTH"

@@ -35,7 +35,6 @@ repositories {
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    // mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     forge "net.minecraftforge:forge:${project.forge_version}"
 
     modImplementation "dev.ftb.mods:ftb-quests-forge:${rootProject.ftb_quests_version}"
