@@ -13,6 +13,7 @@
     "TexTrueStudio",
     "BocchiKessokuTeam"
   ],
+  "icon": "icon.png",
   "contact": {
     "github": "https://github.com/TexTrueStudio/FTBQLocalizationkeys"
   },
