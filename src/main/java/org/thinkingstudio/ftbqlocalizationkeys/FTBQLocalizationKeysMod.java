@@ -58,13 +58,9 @@ public class FTBQLocalizationKeysMod {
 		CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
 
 		RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
-		LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbq-lang-convert").executes(context -> {
-			return 0;
-		}).build();
+		LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbqkey").executes(context -> 0).build();
 
-		ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> {
-			return SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2);
-		}).executes(Ctx -> {
+		ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2)).executes(Ctx -> {
 			try{
 				File parent = new File(FMLPaths.GAMEDIR.get().toFile(), "ftbqlocalizationkeys");
 				File transFiles = new File(parent, "kubejs/assets/kubejs/lang/");

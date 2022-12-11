@@ -5,11 +5,11 @@ license = "CC-BY-4.0"
 [[mods]]
 modId = "ftbqlocalkeys"
 version = "${version}"
-displayName = "Re-FTBQLocalizationKeys"
+displayName = "FTBQLocalizationKeys-Reconverted"
 displayURL="https://github.com/TexTrueStudio/FTBQLocalizationkeys"
-# logoFile="icon.png" #optional
+logoFile="icon.png" #optional
 credits="BlackAuresArt"
-authors="TexTrue, TexTrueStudio"
+authors="TexTrue, TexTrueStudio, BocchiKessokuTeam"
 description = '''
 FTB Quest lang converter
 '''
