@@ -23,7 +23,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.FileUtils;
 
@@ -45,15 +44,11 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
 
     private static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, Boolean dedicated){
         RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
-        LiteralCommandNode<CommandSourceStack> commandNode = literal("ftb-lang-convert").executes(context -> {
-            return 0;
-        }).build();
+        LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbqkey").executes(context -> 0).build();
 
-        ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> {
-            return SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2);
-        }).executes(Ctx -> {
+        ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2)).executes(Ctx -> {
             try{
-                File parent = new File(FabricLoader.getInstance().getGameDir().toFile(), "ftb-conv");
+                File parent = new File(FabricLoader.getInstance().getGameDir().toFile(), "ftbqlocalizationkeys");
                 File transFiles = new File(parent, "kubejs/assets/kubejs/lang/");
                 File questsFolder = new File(FabricLoader.getInstance().getGameDir().toFile(), "config/ftbquests/");
 
