@@ -19,8 +19,6 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-//import net.minecraft.network.chat.TextComponent;
-//import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -40,8 +38,6 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static net.minecraft.commands.Commands.literal;
-
 @Mod(FTBQLocalizationKeysMod.MODID)
 public class FTBQLocalizationKeysMod {
 
@@ -58,7 +54,7 @@ public class FTBQLocalizationKeysMod {
 		CommandDispatcher<CommandSourceStack> commandDispatcher = event.getDispatcher();
 
 		RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
-		LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbqkey").executes(context -> 0).build();
+		LiteralCommandNode<CommandSourceStack> commandNode = Commands.literal("ftbqkey").executes(context -> 0).build();
 
 		ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2)).executes(Ctx -> {
 			try{

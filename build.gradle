@@ -1,5 +1,5 @@
 plugins {
-    id "dev.architectury.loom" version "0.12.0-SNAPSHOT"
+    id "dev.architectury.loom" version "1.0-SNAPSHOT"
     id "maven-publish"
 }
 
@@ -11,16 +11,10 @@ group = project.maven_group
 
 loom {
     silentMojangMappingsLicense()
-    
+
     forge {
         dataGen {
             mod project.mod_id
-        }
-    }
-    
-    launches {
-        data {
-            arg "--existing", file("src/main/resources").absolutePath
         }
     }
 }
@@ -28,7 +22,6 @@ loom {
 repositories {
     maven { url "https://maven.architectury.dev/" }
     maven { url "https://maven.saps.dev/minecraft" }
-
 }
 
 dependencies {
