@@ -9,7 +9,7 @@ displayName = "FTBQLocalizationKeys-Reconverted"
 displayURL="https://github.com/LocalizedMC/FTBQLocalizationkeys"
 logoFile="icon.png" #optional
 credits="BlackAuresArt"
-authors="TexTrue, TexTrueStudio, BocchiKessokuTeam"
+authors="TexTrue, LocalizedMC, BocchiKessokuTeam"
 description = '''
 FTB Quest lang converter
 '''
