@@ -15,7 +15,7 @@ loom {
 
 repositories {
     maven { url "https://maven.architectury.dev/" }
-    maven {url "https://maven.saps.dev/minecraft"}
+    maven { url "https://maven.saps.dev/minecraft" }
     maven { url "https://www.cursemaven.com" }
 
 }
