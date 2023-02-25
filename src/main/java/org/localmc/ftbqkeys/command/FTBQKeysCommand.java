@@ -1,8 +1,6 @@
-package org.thinkingstudio.ftbqlocalizationkeys;
+package org.localmc.ftbqkeys.command;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
@@ -13,8 +11,6 @@ import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.Task;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
@@ -25,28 +21,24 @@ import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import org.apache.commons.io.FileUtils;
+import org.localmc.ftbqkeys.FTBQKeysMod;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-import static net.minecraft.commands.Commands.literal;
-
-public class FTBQLocalizationKeysMod implements ModInitializer{
-
-    public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    private static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, boolean dedicated){
+public class FTBQKeysCommand {
+    public static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, boolean dedicated){
         RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
-        LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbqkey").executes(context -> 0).build();
+        LiteralCommandNode<CommandSourceStack> commandNode = Commands.literal("ftbqkey").executes(context -> 0).build();
 
-        ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2)).executes(Ctx -> {
+        ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> {
+            return SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).collect(Collectors.toList()).toArray(new String[0]), c2);
+        }).executes(Ctx -> {
             try{
                 File parent = new File(FabricLoader.getInstance().getGameDir().toFile(), "ftbqlocalizationkeys");
                 File transFiles = new File(parent, "kubejs/assets/kubejs/lang/");
@@ -70,7 +62,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                 for(int i = 0; i < file.chapterGroups.size(); i++){
                     ChapterGroup chapterGroup = file.chapterGroups.get(i);
 
-                    if(!chapterGroup.title.isBlank()){
+                    if(!chapterGroup.title.isEmpty()){
                         transKeys.put("category." + (i + 1), chapterGroup.title);
                         chapterGroup.title = "{" + "category." + (i + 1) + "}";
                     }
@@ -81,7 +73,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
 
                     String prefix = "chapter." + (i+1);
 
-                    if(!chapter.title.isBlank()){
+                    if(!chapter.title.isEmpty()){
                         transKeys.put(prefix + ".title", chapter.title);
                         chapter.title = "{" + prefix + ".title" + "}";
                     }
@@ -106,12 +98,12 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                     for(int i1 = 0; i1 < chapter.quests.size(); i1++){
                         Quest quest = chapter.quests.get(i1);
 
-                        if(!quest.title.isBlank()){
+                        if(!quest.title.isEmpty()){
                             transKeys.put(prefix + ".quest." + (i1+1) + ".title", quest.title);
                             quest.title = "{" + prefix + ".quest." + (i1+1) + ".title}";
                         }
 
-                        if(!quest.subtitle.isBlank()){
+                        if(!quest.subtitle.isEmpty()){
                             transKeys.put(prefix + ".quest." + (i1+1) + ".subtitle", quest.subtitle);
                             quest.subtitle = "{" + prefix + ".quest." + (i1+1) + ".subtitle" + "}";
                         }
@@ -128,7 +120,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                                 final String regex = "\\{image:.*?}";
 
                                 if(desc.contains("{image:")){
-                                    if(!joiner.toString().isBlank()){
+                                    if(!joiner.toString().isEmpty()){
                                         transKeys.put(prefix + ".quest." + (i1+1) + ".description." + num, joiner.toString());
                                         descList.add("{" + prefix + ".quest." + (i1+1) + ".description." + num + "}");
                                         joiner = new StringJoiner("\n");
@@ -143,7 +135,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                                         descList.add(matcher.group(0));
                                     }
                                 }else{
-                                    if(desc.isBlank()){
+                                    if(desc.isEmpty()){
                                         joiner.add("\n");
                                     }else{
                                         joiner.add(desc);
@@ -151,7 +143,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                                 }
                             }
 
-                            if(!joiner.toString().isBlank()){
+                            if(!joiner.toString().isEmpty()){
                                 transKeys.put(prefix + ".quest." + (i1+1) + ".description." + num, joiner.toString());
                                 descList.add("{" + prefix + ".quest." + (i1+1) + ".description." + num + "}");
                             }
@@ -163,7 +155,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                         for(int i2 = 0; i2 < quest.tasks.size(); i2++){
                             Task task = quest.tasks.get(i2);
 
-                            if(!task.title.isBlank()){
+                            if(!task.title.isEmpty()){
                                 transKeys.put(prefix + ".quest." + (i1+1) + ".task." + (i2+1) + ".title", task.title);
                                 task.title = "{" + prefix + ".quest." + (i1+1) + ".task." + (i2+1) + ".title}";
                             }
@@ -172,7 +164,7 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                         for(int i2 = 0; i2 < quest.rewards.size(); i2++){
                             Reward reward = quest.rewards.get(i2);
 
-                            if(!reward.title.isBlank()){
+                            if(!reward.title.isEmpty()){
                                 transKeys.put(prefix + ".quest." + (i1+1) + ".reward." + (i2+1) + ".title", reward.title);
                                 reward.title = "{" + prefix + ".quest." + (i1+1) + ".reward." + (i2+1) + ".title}";
                             }
@@ -185,10 +177,10 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                 file.writeDataFull(output.toPath());
 
                 String lang = Ctx.getArgument("lang", String.class);
-                saveLang(transKeys, lang, transFiles);
+                FTBQKeysMod.saveLang(transKeys, lang, transFiles);
 
                 if(!lang.equalsIgnoreCase("en_us")){
-                    saveLang(transKeys, "en_us", transFiles);
+                    FTBQKeysMod.saveLang(transKeys, "en_us", transFiles);
                 }
 
                 Ctx.getSource().getPlayerOrException().sendMessage(Component.nullToEmpty(I18n.get("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())), Util.NIL_UUID);
@@ -202,15 +194,5 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
 
         rootCommandNode.addChild(commandNode);
         commandNode.addChild(argumentCommandNode);
-    }
-
-    private static void saveLang(TreeMap<String, String> transKeys, String lang, File parent) throws IOException{
-        File fe = new File(parent, lang.toLowerCase(Locale.ROOT) + ".json");
-        FileUtils.write(fe, FTBQLocalizationKeysMod.gson.toJson(transKeys), StandardCharsets.UTF_8);
-    }
-
-    @Override
-    public void onInitialize() {
-        CommandRegistrationCallback.EVENT.register(FTBQLocalizationKeysMod::serverRegisterCommandsEvent);
     }
 }
