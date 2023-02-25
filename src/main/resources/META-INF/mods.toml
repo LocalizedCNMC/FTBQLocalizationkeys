@@ -6,7 +6,7 @@ license = "CC-BY-4.0"
 modId = "ftbqlocalkeys"
 version = "${version}"
 displayName = "FTBQLocalizationKeys-Reconverted"
-displayURL="https://github.com/TexTrueStudio/FTBQLocalizationkeys"
+displayURL="https://github.com/LocalizedMC/FTBQLocalizationkeys"
 logoFile="icon.png" #optional
 credits="BlackAuresArt"
 authors="TexTrue, TexTrueStudio, BocchiKessokuTeam"
@@ -24,13 +24,13 @@ side = "BOTH"
 [[dependencies.ftbqlocalkeys]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.16.4,)"
+versionRange = "[1.16.4,1.16.5)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.ftbqlocalkeys]]
 modId = "ftbquests"
 mandatory = true
-versionRange = "[1605,)"
+versionRange = "[1604,)"
 ordering = "NONE"
 side = "BOTH"
