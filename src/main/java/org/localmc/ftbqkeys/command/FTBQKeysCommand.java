@@ -1,4 +1,4 @@
-package org.thinkingstudio.ftbqkeys.command;
+package org.localmc.ftbqkeys.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
@@ -18,13 +18,13 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.common.ForgeI18n;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.FileUtils;
-import org.thinkingstudio.ftbqkeys.FTBQKeysMod;
+import org.localmc.ftbqkeys.FTBQKeysMod;
 
 import java.io.File;
 import java.util.List;
@@ -33,6 +33,7 @@ import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Mod.EventBusSubscriber(modid = FTBQKeysMod.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class FTBQKeysCommand {
     @SubscribeEvent
     public void serverRegisterCommandsEvent(RegisterCommandsEvent event){
@@ -41,10 +42,9 @@ public class FTBQKeysCommand {
         RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
         LiteralCommandNode<CommandSourceStack> commandNode = Commands.literal("ftbqkey").executes(context -> 0).build();
 
-        ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word())
-                .suggests((C1, c2) -> SharedSuggestionProvider.suggest(
-                        Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2)).executes(
-                                Ctx -> {
+        ArgumentCommandNode<CommandSourceStack, String> argumentCommandNode = Commands.argument("lang", StringArgumentType.word()).suggests((C1, c2) -> {
+            return SharedSuggestionProvider.suggest(Minecraft.getInstance().getLanguageManager().getLanguages().stream().map(LanguageInfo::getCode).toList().toArray(new String[0]), c2);
+        }).executes(Ctx -> {
             try{
                 File parent = new File(FMLPaths.GAMEDIR.get().toFile(), "ftbqkeys");
                 File transFiles = new File(parent, "kubejs/assets/kubejs/lang/");

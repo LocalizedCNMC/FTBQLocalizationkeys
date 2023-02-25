@@ -1,4 +1,4 @@
-package org.thinkingstudio.ftbqkeys;
+package org.localmc.ftbqkeys;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
