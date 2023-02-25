@@ -10,12 +10,12 @@
   ],
   "authors": [
     "TexTrue",
-    "TexTrueStudio",
+    "LocalizedMC",
     "BocchiKessokuTeam"
   ],
   "icon": "icon.png",
   "contact": {
-    "github": "https://github.com/TexTrueStudio/FTBQLocalizationkeys"
+    "github": "https://github.com/LocalizedMC/FTBQLocalizationkeys"
   },
 
   "license": "CC-BY-4.0",
@@ -23,7 +23,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "org.thinkingstudio.ftbqlocalizationkeys.FTBQLocalizationKeysMod"
+      "org.localmc.ftbqkeys.FTBQKeysMod"
     ]
   },
 
