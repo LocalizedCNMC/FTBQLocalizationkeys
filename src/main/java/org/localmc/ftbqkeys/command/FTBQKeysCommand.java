@@ -1,7 +1,5 @@
-package org.thinkingstudio.ftbqlocalizationkeys;
+package org.localmc.ftbqkeys.command;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.tree.ArgumentCommandNode;
@@ -12,8 +10,6 @@ import dev.ftb.mods.ftbquests.quest.*;
 import dev.ftb.mods.ftbquests.quest.loot.RewardTable;
 import dev.ftb.mods.ftbquests.quest.reward.Reward;
 import dev.ftb.mods.ftbquests.quest.task.Task;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -25,12 +21,10 @@ import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.network.chat.Component;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.io.FileUtils;
+import org.localmc.ftbqkeys.FTBQKeysMod;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
@@ -38,11 +32,8 @@ import java.util.regex.Pattern;
 
 import static net.minecraft.commands.Commands.literal;
 
-public class FTBQLocalizationKeysMod implements ModInitializer{
-
-    public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-    private static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, CommandBuildContext dedicated, Commands.CommandSelection commandSelection){
+public class FTBQKeysCommand {
+    public static void serverRegisterCommandsEvent(CommandDispatcher<CommandSourceStack> commandDispatcher, CommandBuildContext dedicated, Commands.CommandSelection commandSelection){
         RootCommandNode<CommandSourceStack> rootCommandNode = commandDispatcher.getRoot();
         LiteralCommandNode<CommandSourceStack> commandNode = literal("ftbqkey").executes(context -> 0).build();
 
@@ -185,10 +176,10 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
                 file.writeDataFull(output.toPath());
 
                 String lang = Ctx.getArgument("lang", String.class);
-                saveLang(transKeys, lang, transFiles);
+                FTBQKeysMod.saveLang(transKeys, lang, transFiles);
 
                 if(!lang.equalsIgnoreCase("en_us")){
-                    saveLang(transKeys, "en_us", transFiles);
+                    FTBQKeysMod.saveLang(transKeys, "en_us", transFiles);
                 }
 
                 Ctx.getSource().getPlayerOrException().sendSystemMessage(Component.nullToEmpty(I18n.get("command.ftbqlocalizationkeys.tooltip" + parent.getAbsolutePath())));
@@ -202,15 +193,5 @@ public class FTBQLocalizationKeysMod implements ModInitializer{
 
         rootCommandNode.addChild(commandNode);
         commandNode.addChild(argumentCommandNode);
-    }
-
-    private static void saveLang(TreeMap<String, String> transKeys, String lang, File parent) throws IOException{
-        File fe = new File(parent, lang.toLowerCase(Locale.ROOT) + ".json");
-        FileUtils.write(fe, FTBQLocalizationKeysMod.gson.toJson(transKeys), StandardCharsets.UTF_8);
-    }
-
-    @Override
-    public void onInitialize() {
-        CommandRegistrationCallback.EVENT.register(FTBQLocalizationKeysMod::serverRegisterCommandsEvent);
     }
 }
