@@ -12,7 +12,8 @@
   ],
   "icon": "icon.png",
   "contact": {
-    "github": "https://github.com/LocalizedMC/FTBQLocalizationkeys"
+    "homepage": "https://github.com/LocalizedMC/FTBQLocalizationkeys",
+    "sources": "https://github.com/LocalizedMC/FTBQLocalizationkeys"
   },
   "license": "CC-BY-4.0",
   "environment": "*",
