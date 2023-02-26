@@ -2,12 +2,8 @@
   "schemaVersion": 1,
   "id": "ftbqlocalkeys",
   "version": "${version}",
-
   "name": "FTBQLocalizationKeys-Reconverted",
   "description": "FTB quest lang converter",
-  "credits": [
-
-  ],
   "authors": [
     "BlackAuresArt",
     "TexTrue",
