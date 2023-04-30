@@ -4,9 +4,6 @@
 
 # FTBQLocalizationKeys-Reconverted
 
-![Enviroment](https://img.shields.io/badge/Enviroment-Client-purple)
-
-
 A [FTB Quests: Localization keys](https://www.curseforge.com/minecraft/mc-mods/ftb-quests-localization-keys) unofficial fork. 
 Support Forge/Fabric/Quilt.
 

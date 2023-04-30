@@ -4,9 +4,6 @@
 
 # FTBQLocalizationKeys-Reconverted
 
-![Enviroment](https://img.shields.io/badge/Enviroment-Client-purple)
-
-
 [FTB Quests: Localization keys](https://www.curseforge.com/minecraft/mc-mods/ftb-quests-localization-keys) 的非官方重置版。
 支持 Forge/Fabric/Quilt。
 
