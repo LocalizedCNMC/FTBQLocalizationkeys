@@ -31,6 +31,6 @@ side = "BOTH"
 [[dependencies.ftbqlocalkeys]]
 modId = "ftbquests"
 mandatory = true
-versionRange = "[1604,)"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
