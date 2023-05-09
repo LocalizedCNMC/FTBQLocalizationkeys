@@ -8,6 +8,8 @@
 支持 Forge/Fabric/Quilt。
 
 ZH-CN / [EN-US](README.md)
+  
+  这个仓库已存档! 请前往 [这个仓库](https://github.com/LocalizedMC/FTBQLocalizationKeys-Arch)!
 
 </div></center>
 
