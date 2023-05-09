@@ -8,8 +8,12 @@ A [FTB Quests: Localization keys](https://www.curseforge.com/minecraft/mc-mods/f
 Support Forge/Fabric/Quilt.
 
 [ZH-CN](README-ZHCN.md) / EN-US
+  
+  THIS REPO IS ARCHIVE! PLUSE GO TO [THIS REPO](https://github.com/LocalizedMC/FTBQLocalizationKeys-Arch)!
 
 </div></center>
+
+
 
 ### How to use ?
 - Install FTB Quests and KubeJS
