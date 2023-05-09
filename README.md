@@ -9,7 +9,7 @@ Support Forge/Fabric/Quilt.
 
 [ZH-CN](README-ZHCN.md) / EN-US
   
-  THIS REPO IS ARCHIVE! PLUSE GO TO [THIS REPO](https://github.com/LocalizedMC/FTBQLocalizationKeys-Arch)!
+  **THIS REPO IS ARCHIVE! PLEASE GO TO [THIS REPO](https://github.com/LocalizedMC/FTBQLocalizationKeys-Arch)!**
 
 </div></center>
 
